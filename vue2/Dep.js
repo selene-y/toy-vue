@@ -5,7 +5,6 @@ export default class Dep {
     this.deps = new Set()
   }
   add(dep) {
-    // REVIEW 这个update是什么
     if (dep && dep.update) this.deps.add(dep)
   }
   notify() {
