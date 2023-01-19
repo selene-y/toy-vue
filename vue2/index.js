@@ -1,5 +1,6 @@
 import Observer from './Observer.js'
 import Compiler from './Compiler.js'
+import { initComputed, initWatch } from './initState.js'
 export class Vue {
   constructor(options = {}) {
     this.$options = options
@@ -11,6 +12,9 @@ export class Vue {
 
     // observer 拦截 this.$data 中的数据获取和设置
     new Observer(this.$data)
+    // 先初始化计算属性，因为计算属性也可以在watch中监听
+    initComputed.call(this)
+    initWatch.call(this)
     new Compiler(this)
   }
 
@@ -30,7 +34,6 @@ export class Vue {
       })
     })
   }
-
 }
 
 function __isNaN(a, b) {

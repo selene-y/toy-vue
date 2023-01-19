@@ -19,7 +19,7 @@ export default class Observer {
       enumerable: true,
       get() {
         // NOTE Dep.target 在watcher创建的时候新建，所以如果页面上没有用到这个变量，是不会创建响应式的
-        Dep.target && dep.add(Dep.target)
+        dep.depend()
         return value
       },
       set(newValue) {

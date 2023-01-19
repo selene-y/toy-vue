@@ -12,7 +12,21 @@
       el: '#app',
       data: {
         msg: 'Hello Vue2.x',
-        count: 666
+        count: 1,
+        person: {
+          name: 'zs'
+        }
+      },
+      watch: {
+        x () {
+          console.log('x监听')
+        }
+      },
+      computed: {
+        add () {
+          console.log('计算add')
+          return this.count + 1
+        },
       },
       methods: {
         increase() {
@@ -20,6 +34,7 @@
         }
       }
     })
+
   </script>
 </head>
 
@@ -32,7 +47,9 @@
     <h1>v-model</h1>
     <input type="text" v-model="msg">
     <input type="text" v-model="count">
-    <button v-on:click="increase">按钮</button>
+    <button v-on:click="increase">加 1</button>
+    <h1>computed: count + 1</h1>
+    <h3>{{ add }}</h3>
   </div>
 </body>
 

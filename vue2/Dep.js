@@ -4,10 +4,18 @@ export default class Dep {
     // 每一个属性会创建一个自己的Dep实例
     this.deps = new Set()
   }
-  add(dep) {
-    if (dep && dep.update) this.deps.add(dep)
+
+  depend() {
+    if (Dep.target) {
+      Dep.target.addDep(this)
+    }
+  }
+  addSub(watcher) {
+    this.deps.add(watcher)
   }
   notify() {
-    this.deps.forEach(dep => dep.update())
+    this.deps.forEach(dep => {
+      return dep.update()
+    })
   }
 }
