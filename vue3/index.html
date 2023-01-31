@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="module">
+    import { mount, reactive, ref, computed } from './vue3.js'
+    const app = {
+      $data: null,
+      setup() {
+        let count = ref(0);
+        let time = reactive({second: 0})
+        let com = computed(() => `get compute: ${count.value + time.second}`)
+
+        setInterval(() => {
+          time.second ++
+        }, 1000);
+
+        setInterval(() => {
+          count.value ++
+        }, 1000)
+
+        return {
+          count,
+          time,
+          com
+        }
+      },
+      render() {
+        return `
+          <h1>Reactive Works</h1>
+          <h5>ref data: ${this.$data.count.value}</h5>
+          <h5>reactive data: ${this.$data.time.second}</h5>
+          <h5>computed data: ${this.$data.com.value}</h5>
+        `
+      }
+    };
+    mount(app, document.querySelector('#app'))
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
